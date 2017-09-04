@@ -9,6 +9,15 @@ const BToperator: any = HPRTAndroidSDK.BTOperator;
 const PublicFunction: any = HPRTAndroidSDK.PublicFunction;
 const HPRTPrinterHelper: any = HPRTAndroidSDK.HPRTPrinterHelper;
 
+// try {
+//     java.lang.System.loadLibrary("hprt_printer_model");
+//     java.lang.System.loadLibrary("hprt_printer_helper_cmd");
+//     console.log("Libraries loaded!");
+// }
+// catch (e) {
+//     console.log("Error loading library");
+// }
+
 
 export class Hprt {
 
@@ -21,7 +30,8 @@ export class Hprt {
 
     constructor() {
 
-        this.encoding = java.nio.charset.Charset.forName("UTF-8");        
+        this.encoding = java.nio.charset.Charset.forName("UTF-8");   
+        this.HPRTPrinterHelper = new HPRTAndroidSDK.HPRTPrinterHelper(utils.ad.getApplicationContext(), "MPT-II");      
 
     }
 
@@ -80,7 +90,7 @@ export class Hprt {
                     let deviceObj = mBtAdapter.getRemoteDevice(device);
                     printers.push(new HPRTPrinter(deviceObj.getAddress(), deviceObj.getName()));
 
-                  }
+                }
             }
 
             resolve(printers);
@@ -119,6 +129,57 @@ export class Hprt {
         });
     }
 
+    // Print methods
+    printTextSimple(text: string) {
+        if(text){
+            HPRTAndroidSDK.HPRTPrinterHelper.PrintText(text, 0, 0, 0); // Reset all to 0
+        }        
+        return true;
+    }
+
+    printText(text:string, alignment:number, attribute:number, textSize:number) {
+
+        let align = alignment || 0;
+        let attr = attribute || 0;
+        let txtSize = textSize || 0;
+
+        let data = Array.create("byte", 1);
+        data[0] = "0x1b,0x40";
+        HPRTAndroidSDK.HPRTPrinterHelper.WriteData(data);
+
+        this.LanguageEncode();  
+
+        console.log("printer properties", text, align, attr, txtSize);
+
+        if(text) {
+            HPRTAndroidSDK.HPRTPrinterHelper.PrintText(text, align, attr, txtSize);
+        }
+
+        return true;
+    }
+
+    printTextDouble(text: string) {
+        if(text){
+            HPRTAndroidSDK.HPRTPrinterHelper.PrintText(text, 0, 48, 0);
+        }        
+        return true;
+    }
+
+    newLine(lines?: number) {
+        let line = lines || 1;
+
+        for (let i = 0; i < line; i++) {            
+            HPRTAndroidSDK.HPRTPrinterHelper.PrintText("\n");
+        }
+        return true;
+    }
+
+    horizontalLine() {
+        let line = "--------------------------------\n";
+        HPRTAndroidSDK.HPRTPrinterHelper.PrintText(line, 0,0,0);
+        return true;
+    }
+
     testPrint(): Promise<any>{
         return new Promise((resolve, reject) => {            
 
@@ -144,7 +205,7 @@ export class Hprt {
     private LanguageEncode() {
         try
 		{
-			let PFun = new PublicFunction(utils.ad.getApplicationContext());
+			let PFun = new HPRTAndroidSDK.PublicFunction(utils.ad.getApplicationContext());
 			let sLanguage = PFun.ReadSharedPreferencesData("Codepage").split(",")[1].toString();
 			let sLEncode="gb2312";
 			let intLanguageNum = 0;
@@ -152,8 +213,8 @@ export class Hprt {
 			sLEncode=PFun.getLanguageEncode(sLanguage);		
 			intLanguageNum= PFun.getCodePageIndex(sLanguage);	
 			
-			HPRTPrinterHelper.SetCharacterSet(intLanguageNum);
-			HPRTPrinterHelper.LanguageEncode=sLEncode;
+			HPRTAndroidSDK.HPRTPrinterHelper.SetCharacterSet(intLanguageNum);
+			HPRTAndroidSDK.HPRTPrinterHelper.LanguageEncode = sLEncode;
 			
 			return sLEncode;
 		}
