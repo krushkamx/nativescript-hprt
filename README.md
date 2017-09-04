@@ -1,4 +1,4 @@
-# Your Plugin Name
+# WIP - will be soon ready for you to try
 
 Add your plugin badges here. See [nativescript-urlhandler](https://github.com/hypery2k/nativescript-urlhandler) for example.
 
