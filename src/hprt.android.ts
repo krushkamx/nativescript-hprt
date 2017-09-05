@@ -38,7 +38,7 @@ export class Hprt {
     EnableBluetooth(timeout?: number): Promise<any> {
         return new Promise((resolve, reject) => {
 
-            let wait = timeout | 5000;
+            let wait = timeout || 5000;
 
             try {
 
@@ -143,13 +143,12 @@ export class Hprt {
         let attr = attribute || 0;
         let txtSize = textSize || 0;
 
-        let data = Array.create("byte", 1);
-        data[0] = "0x1b,0x40";
-        HPRTAndroidSDK.HPRTPrinterHelper.WriteData(data);
+        // let data = Array.create("byte", 1);
+        // data[0] = "0x1b,0x40";
+        // HPRTAndroidSDK.HPRTPrinterHelper.WriteData(data);
 
-        this.LanguageEncode();  
+        //this.LanguageEncode();  
 
-        console.log("printer properties", text, align, attr, txtSize);
 
         if(text) {
             HPRTAndroidSDK.HPRTPrinterHelper.PrintText(text, align, attr, txtSize);
@@ -165,6 +164,69 @@ export class Hprt {
         return true;
     }
 
+    printTextDoubleHeight(text: string) {
+        if(text){
+            HPRTAndroidSDK.HPRTPrinterHelper.PrintText(text, 0, 16, 0);
+        }        
+        return true;
+    }
+
+    printTextDoubleWidth(text: string) {
+        if(text){
+            HPRTAndroidSDK.HPRTPrinterHelper.PrintText(text, 0, 32, 0);
+        }        
+        return true;
+    }
+
+    printTextUnderline(text: string) {
+        if(text){
+            HPRTAndroidSDK.HPRTPrinterHelper.PrintText(text, 0, 4, 0);
+        }        
+        return true;
+    }
+
+    printTextBold(text: string) {
+        if(text){
+            HPRTAndroidSDK.HPRTPrinterHelper.PrintText(text, 0, 2, 0);
+        }        
+        return true;
+    }
+
+    printTextMini(text: string) {
+        if(text){
+            HPRTAndroidSDK.HPRTPrinterHelper.PrintText(text, 0, 1, 0);
+        }        
+        return true;
+    }
+
+    printTextWhite(text: string) {
+        if(text){
+            HPRTAndroidSDK.HPRTPrinterHelper.PrintText(text, 0, 8, 0);
+        }        
+        return true;
+    }
+
+    printTextLeft(text: string) {
+        if(text){
+            HPRTAndroidSDK.HPRTPrinterHelper.PrintText(text, 0, 0, 0);
+        }        
+        return true;
+    }
+
+    printTextCenter(text: string) {
+        if(text){
+            HPRTAndroidSDK.HPRTPrinterHelper.PrintText(text, 1, 0, 0);
+        }        
+        return true;
+    }
+
+    printTextRight(text: string) {
+        if(text){
+            HPRTAndroidSDK.HPRTPrinterHelper.PrintText(text, 2, 0, 0);
+        }        
+        return true;
+    }
+
     newLine(lines?: number) {
         let line = lines || 1;
 
@@ -175,7 +237,7 @@ export class Hprt {
     }
 
     horizontalLine() {
-        let line = "--------------------------------\n";
+        let line = "--------------------------------";
         HPRTAndroidSDK.HPRTPrinterHelper.PrintText(line, 0,0,0);
         return true;
     }
