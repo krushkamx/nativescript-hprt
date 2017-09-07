@@ -1,6 +1,6 @@
 {
     "name": "nativescript-hprt",
-    "version": "0.9.5",
+    "version": "0.9.5.1",
     "description": "Nativescript HPRT Thermal Bluetooth Printer",
     "main": "hprt",
     "typings": "index.d.ts",
@@ -37,6 +37,10 @@
     "author": {
         "name": "Krushka Design",
         "email": "info@krushka.mx"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/krushkamx/nativescript-hprt.git"
     },
     "bugs": {
         "url": "https://github.com/krushkamx/nativescript-hprt/issues"

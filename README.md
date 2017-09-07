@@ -2,6 +2,8 @@
 
 This plugin uses HPRT SDK for Android and iOS *(coming soon)* from [HPRT](https://www.hprt.com/). At this moment it is tested on mobile bluetooth thermal printers that use 57mm (2.24") rolls. The SDK supports also wifi and other printer features that are not included *(yet)*, we are open for PRs and contributions.
 
+<img src="https://github.com/krushkamx/nativescript-hprt/raw/master/media/demo-android.gif" width="400px" height="224px" />
+
 ## Installation
 
 ```javascript
@@ -41,7 +43,7 @@ export class YourClass implements OnInit {
 Enables bluetooth if it's turned off, it receives timout value, at this moment it is timeout after which this promise resolves, will try to make automatic. You can call this from `ngOnInit()` or have a button.
 
 ```typescript
-this.hprt.EnableBluetooth().then((res) => {
+this.hprt.enableBluetooth().then((res) => {
     console.log("BT Enabled", res);
 }, (err) => {
     console.log("Error", err);
