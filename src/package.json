@@ -1,7 +1,7 @@
 {
     "name": "nativescript-hprt",
     "version": "1.0.0",
-    "description": "Your awesome NativeScript plugin.",
+    "description": "Nativescript HPRT Thermal Bluetooth Printer",
     "main": "hprt",
     "typings": "index.d.ts",
     "nativescript": {
@@ -30,17 +30,19 @@
         "NativeScript",
         "JavaScript",
         "Android",
-        "iOS"
+        "Printer",
+        "Thermal Printer",
+        "HPRT"
     ],
     "author": {
-        "name": "Your Name",
-        "email": "youremail@yourdomain.com"
+        "name": "Krushka Design",
+        "email": "info@krushka.mx"
     },
     "bugs": {
-        "url": "https://github.com/davorpeic/nativescript-hprt/issues"
+        "url": "https://github.com/krushkamx/nativescript-hprt/issues"
     },
-    "license": "Apache-2.0",
-    "homepage": "https://github.com/davorpeic/nativescript-hprt",
+    "license": "MIT",
+    "homepage": "https://github.com/krushkamx/nativescript-hprt",
     "readmeFilename": "README.md",
     "peerDependencies": {
         "tns-core-modules": "^3.0.0"
