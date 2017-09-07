@@ -35,7 +35,7 @@ export class Hprt {
 
     }
 
-    EnableBluetooth(timeout?: number): Promise<any> {
+    enableBluetooth(timeout?: number): Promise<any> {
         return new Promise((resolve, reject) => {
 
             let wait = timeout || 5000;
