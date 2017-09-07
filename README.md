@@ -276,6 +276,7 @@ this.hprt.horizontalLine();
  - HPRT mobile printers
  - G00JPRT
  - Bixolon SPP-R200III
+ - *Let us know if works with some other thermal mobile printer*
 
 ## Tested with Android phones
  - Samsung S3, Android 4.4
