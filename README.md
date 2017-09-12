@@ -52,7 +52,15 @@ this.hprt.enableBluetooth().then((res) => {
 
 | Property | Default | Description |
 | --- | --- | --- |
-| timeout | 5000 | Value in ms after which promise resolves, bluetooth device normally gets connected between 2-4s |
+| timeout | 6000 | Value in ms after which promise resolves, bluetooth device normally gets connected between 2-4s |
+
+### `isBluetoothEnabled`
+
+Returns `true` or `false` depending on bluetooth state
+
+```typescript
+let isBluetoothEnabled = this.hprt.isBluetoothEnabled();
+```
 
 
 ### `searchPrinters`
@@ -96,6 +104,14 @@ this.hprt.disconnect().then((res) => {
 }, (err) => {
     console.log("error", err)
 })
+```
+
+### `isConnected`
+
+Returns `true` or `false` if printer is connected. Useful to call before you perform some print action, so you can connect to printer automatically or manually.
+
+```typescript
+let isConnected = this.hprt.isConnected();
 ```
 
 ## Printing API

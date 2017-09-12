@@ -1,6 +1,6 @@
 {
     "name": "nativescript-hprt",
-    "version": "0.9.5.1",
+    "version": "0.9.6",
     "description": "Nativescript HPRT Thermal Bluetooth Printer",
     "main": "hprt",
     "typings": "index.d.ts",

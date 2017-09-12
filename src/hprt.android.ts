@@ -1,4 +1,5 @@
 import * as utils from "utils/utils";
+import * as application from "tns-core-modules/application";
 import {
     HPRTPrinter
 } from "./hprt.common";
@@ -8,16 +9,8 @@ const BToperator: any = HPRTAndroidSDK.BTOperator;
 // const HPRTPrinterHelper: any = HPRTAndroidSDK.HPRTPrinterHelper;
 const PublicFunction: any = HPRTAndroidSDK.PublicFunction;
 const HPRTPrinterHelper: any = HPRTAndroidSDK.HPRTPrinterHelper;
-
-// try {
-//     java.lang.System.loadLibrary("hprt_printer_model");
-//     java.lang.System.loadLibrary("hprt_printer_helper_cmd");
-//     console.log("Libraries loaded!");
-// }
-// catch (e) {
-//     console.log("Error loading library");
-// }
-
+const REQUEST_ENABLE_BT = 1;
+let onBluetoothEnabledResolve;
 
 export class Hprt {
 
@@ -27,49 +20,53 @@ export class Hprt {
     private encoding: any;
     private printerModel: any;
     private HPRTPrinterHelper: any;
+    private mBluetoothAdapter: any;
 
     constructor() {
 
         this.encoding = java.nio.charset.Charset.forName("UTF-8");   
-        this.HPRTPrinterHelper = new HPRTAndroidSDK.HPRTPrinterHelper(utils.ad.getApplicationContext(), "MPT-II");      
+        this.HPRTPrinterHelper = new HPRTAndroidSDK.HPRTPrinterHelper(utils.ad.getApplicationContext(), "MPT-II"); 
+        this.mBluetoothAdapter = android.bluetooth.BluetoothAdapter.getDefaultAdapter();     
 
     }
 
     enableBluetooth(timeout?: number): Promise<any> {
         return new Promise((resolve, reject) => {
 
-            let wait = timeout || 5000;
+            let wait = timeout || 6000;
 
-            try {
+            if (this.mBluetoothAdapter == null){
+                reject("Bluetooth NOT support");
+            }else{
+                if (this.mBluetoothAdapter.isEnabled()){
+                    if(this.mBluetoothAdapter.isDiscovering()){
+                        resolve("Bluetooth is currently in device discovery process.");
+                    }else{
+                        resolve("Bluetooth is enabled");
+                    }
+                }else{
+                    this.mBluetoothAdapter.enable();
 
-                let mBluetoothAdapter = android.bluetooth.BluetoothAdapter.getDefaultAdapter()
-                if(mBluetoothAdapter != null) {
-                    if(mBluetoothAdapter.isEnabled()) {
-                        resolve();
-                    };
-                    
-                    mBluetoothAdapter.enable();
-
-                    // Let give some space to enable bluetooth
                     setTimeout(() => {
-                        if(!mBluetoothAdapter.isEnabled()) {
+                        if(!this.mBluetoothAdapter.isEnabled()) {
                             resolve();
                         }
                         else {
                             reject("Couldn't enable bluetooth, please do it manually.");
                         }
                     }, wait);
-                    
-                } 
-                else
-                {
-                    reject("Bluetooth Adapter is null.");
                 }
-
-            } catch (e) {
-              reject(e);
             }
+
+
+
+
+            
           });
+    }
+
+    isBluetoothEnabled(): boolean {
+        return this.mBluetoothAdapter.isEnabled() && this.mBluetoothAdapter != null ? true : false;
     }
 
     searchPrinters(): Promise<Array<HPRTPrinter>> {
@@ -127,6 +124,10 @@ export class Hprt {
               reject(e);
             }
         });
+    }
+
+    isConnected():boolean {
+        return HPRTAndroidSDK.HPRTPrinterHelper.IsOpened();
     }
 
     // Print methods
