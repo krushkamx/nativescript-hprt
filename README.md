@@ -52,7 +52,7 @@ this.hprt.enableBluetooth().then((res) => {
 
 | Property | Default | Description |
 | --- | --- | --- |
-| timeout | 6000 | Value in ms after which promise resolves, bluetooth device normally gets connected between 2-4s |
+| timeout | 6000 | Optional. Not used at this moment, will be used in next update to define timeout if bluetooth is not enabled |
 
 ### `isBluetoothEnabled`
 
