@@ -300,3 +300,4 @@ this.hprt.horizontalLine();
 ## Tested with Android phones
  - Samsung S3, Android 4.4
  - Redmi 4A, Android 6
+ - Redmi 4A, Android 7
