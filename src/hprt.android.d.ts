@@ -1,0 +1,55 @@
+import 'rxjs/add/operator/distinctUntilChanged';
+import { HPRTPrinter } from "./hprt.common";
+export declare class Hprt {
+    private printer;
+    private hpm;
+    private hphc;
+    private encoding;
+    private printerModel;
+    private HPRTPrinterHelper;
+    private mBluetoothAdapter;
+    constructor();
+    enableBluetooth(timeout?: number): Promise<any>;
+    isBluetoothEnabled(): boolean;
+    isBluetoothEnabledPromise(): Promise<any>;
+    searchPrinters(): Promise<Array<HPRTPrinter>>;
+    connect(portSetting: HPRTPrinter): Promise<any>;
+    disconnect(): Promise<any>;
+    isConnected(): boolean;
+    printTextSimple(text: string): boolean;
+    printText(text: string, alignment: number, attribute: number, textSize: number): boolean;
+    printTextDouble(text: string): boolean;
+    printTextDoubleHeight(text: string): boolean;
+    printTextDoubleWidth(text: string): boolean;
+    printTextUnderline(text: string): boolean;
+    printTextBold(text: string): boolean;
+    printTextMini(text: string): boolean;
+    printTextWhite(text: string): boolean;
+    printTextLeft(text: string): boolean;
+    printTextCenter(text: string): boolean;
+    printTextRight(text: string): boolean;
+    newLine(lines?: number): boolean;
+    horizontalLine(): boolean;
+    printQrCode(text: string, alignment: number, attribute: number, textSize: number): boolean;
+    testPrint(): Promise<any>;
+    private toBytes(val);
+    private LanguageEncode();
+    private getEncodedString(val);
+    private AfterPrintAction();
+    private listenToBluetoothEnabled();
+}
+export declare class PrinterProperty {
+    static Barcode: string;
+    static PrintableWidth: number;
+    static Cut: boolean;
+    static CutSpacing: number;
+    static TearSpacing: number;
+    static ConnectType: number;
+    static Cashdrawer: boolean;
+    static Buzzer: boolean;
+    static Pagemode: boolean;
+    static PagemodeArea: string;
+    static GetRemainingPower: boolean;
+    static SampleReceipt: boolean;
+    static StatusMode: number;
+}
