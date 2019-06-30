@@ -290,6 +290,70 @@ Adds horizontal line (-------) in 32 characters.
 this.hprt.horizontalLine();
 ```
 
+## Working with workers
+Add `enable-bluetooth.js` to `app/workers` with this code:
+```
+global.onmessage = function(msg) {
+
+    var result = enableBluetooth();
+
+    global.postMessage(result);
+}
+
+function enableBluetooth() {
+    let mBluetoothAdapter = android.bluetooth.BluetoothAdapter.getDefaultAdapter();
+
+    if (mBluetoothAdapter == null) {
+        return { success: false, message: "Bluetooth NOT support", enabled: false}
+    }
+    else {
+        if (mBluetoothAdapter.isEnabled()) {
+            if (mBluetoothAdapter.isDiscovering()) {
+                return { success: true, message: "Bluetooth is currently in device discovery process.", enabled: false};
+            } else {
+                return { success: true, message: "Bluetooth is enabled", enabled: true}
+            }
+        }
+        else {
+            mBluetoothAdapter.enable();
+            return { success: true, message: "", enabled: false};
+        }
+    }
+
+}
+```
+
+Add `connect-printer.js` to `app/workers` with this code:
+```
+global.onmessage = function(msg) {
+    var request = msg.data;
+    var port = request.port;
+
+    var result = connectPrinter(port);
+
+    global.postMessage(result);
+}
+
+function connectPrinter(port) {
+    let isPortOpen = HPRTAndroidSDK.HPRTPrinterHelper.PortOpen("Bluetooth,"+port.portName);
+    
+    return isPortOpen;
+}
+```
+
+## Include workers in your webpack build
+Add copying workers in your webpack build
+```
+new CopyWebpackPlugin([
+    { from: { glob: "*.css" } },
+    { from: { glob: "assets/*.css" } },
+    { from: { glob: "workers/**" } }, // <-- Add this line to your CopyWebpackPlugin config in webpack.config.js
+    { from: { glob: "fonts/**" } },
+    { from: { glob: "**/*.jpg" } },
+    { from: { glob: "**/*.png" } },
+], { ignore: [`${relative(appPath, appResourcesFullPath)}/**`] }),
+```
+
 ## Tested with printers
  - HPRT mobile printers
  - G00JPRT
