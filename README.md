@@ -359,6 +359,7 @@ new CopyWebpackPlugin([
  - G00JPRT
  - Bixolon SPP-R200III
  - Xprinter P300 (58mm)
+ - Mini Thermal Printer -L51
  - *Let us know if works with some other thermal mobile printer*
 
 ## Tested with Android phones
