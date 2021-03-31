@@ -73,7 +73,7 @@ export class Hprt {
     }
 
     isBluetoothEnabled(): boolean {
-        return this.mBluetoothAdapter.isEnabled() && this.mBluetoothAdapter != null ? true : false;
+        return this.mBluetoothAdapter != null && this.mBluetoothAdapter.isEnabled()  ? true : false;
     }
 
     isBluetoothEnabledPromise(): Promise<any> {
