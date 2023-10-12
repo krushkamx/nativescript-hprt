@@ -1,3 +1,7 @@
+### 2023-10-12 Update: Unfortunately as you could notice, I dont have to mantain this library anymore, also I switched to Flutter in aspect of mobile development so if you want and know, fork this plugin and adopt it to your use.
+
+----
+
 # Nativescript HPRT Thermal Bluetooth Printer
 
 This plugin uses HPRT SDK for Android and iOS *(coming soon)* from [HPRT](https://www.hprt.com/). At this moment it is tested on mobile bluetooth thermal printers that use 57mm (2.24") rolls. The SDK supports also wifi and other printer features that are not included *(yet)*, we are open for PRs and contributions.
