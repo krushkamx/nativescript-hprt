@@ -1,4 +1,4 @@
-### 2023-10-12 Update: Unfortunately as you could notice, I dont have to mantain this library anymore, also I switched to Flutter in aspect of mobile development so if you want and know, fork this plugin and adopt it to your use.
+### 2023-10-12 Update: Unfortunately as you could notice, I don't have enought time to mantain this library anymore, I also switched to Flutter in aspect of mobile development so if you want and know, fork this plugin and adopt it to your use.
 
 ----
 
